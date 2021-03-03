@@ -1,18 +1,8 @@
 defmodule LexorankEx.Oparations.Add do
-  import LexorankEx.NumerialSystem, only: [radix: 0]
+  import LexorankEx.NumerialSystem, only: [radix: 0, max_index: 0]
 
   def call(signature1, signature2) do
     call(signature1, signature2, [])
-  #     if (a.length !== b.length) { throw new Error('same length arrays needed'); }
-  # let carry = rem >= den, res = b.slice();
-  # if (carry) { rem -= den; }
-  # a.reduceRight((_, ai, i) => {
-  #   const result = ai + b[i] + carry;
-  #   carry = result >= base;
-  #   res[i] = carry ? result - base : result;
-  # }, null);
-  # return {res, carry, rem, den};
-
   end
   def call([carry], [], acc) do
     Enum.reverse(acc) ++ [carry]
@@ -23,19 +13,19 @@ defmodule LexorankEx.Oparations.Add do
   def call([sig | tail], [sig2 | tail2], acc) do
     sum = sig + sig2
 
-    case sum <= radix() do
+    case sum <= max_index() do
       true -> call(tail, tail2, [sum | acc])
       false ->
         shifted = increment_list(tail)
         # The increment_list list is a operation itself
         # We need to decrease added value by 1
         # Radix 10       Radix 62
-        #   99              62 62
+        #   99              61 61
         # +  1             +    1
         # ======        ==========
         #  100             1  0  0
 
-        diff = sig + sig2 - radix() - 1
+        diff = sig + sig2 - max_index() - 1
         call(shifted, tail2, [diff | acc])
     end
   end
@@ -45,13 +35,13 @@ defmodule LexorankEx.Oparations.Add do
   end
   defp increment_list([], acc) do
     # We've reached the the maximum value in current division
-    # 62 62 62
+    # 61 61 61
     acc ++ [1]
   end
   defp increment_list([head | tail], acc) do
     result = head + 1
 
-    case result <= radix() do
+    case result <= max_index() do
       true -> Enum.reverse(acc) ++ [result] ++ tail
       false ->
         increment_list(tail, [0])

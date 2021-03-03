@@ -16,7 +16,7 @@ defmodule LexorankEx.NumerialSystem do
   @min List.first(@list)
   @max List.last(@list)
   @radix Enum.count(@list)
-
+  @max_index @radix - 1
 
   def to_digit(char) do
     Map.get(@mapping, char)
@@ -30,4 +30,5 @@ defmodule LexorankEx.NumerialSystem do
   def min_index, do: to_digit(@min)
   def max, do: @max
   def radix, do: @radix
+  def max_index, do: @max_index
 end

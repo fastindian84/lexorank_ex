@@ -7,7 +7,7 @@ defmodule LexorankExTest do
   end
 
   test "#between" do
-    assert LexorankEx.between("A", "C") == "B"
-    assert LexorankEx.between("AA", "AB") == "AAO"
+    assert LexorankEx.between("a", "b") == "an"
+    # assert LexorankEx.between("AA", "AB") == "AAO"
   end
 end
