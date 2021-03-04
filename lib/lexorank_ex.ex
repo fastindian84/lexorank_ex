@@ -1,5 +1,5 @@
 defmodule LexorankEx do
-  alias LexorankEx.Oparations.{Add, Partition, Substract, Coersion}
+  alias LexorankEx.Oparations.{Add, Partition, Coersion, Fraction, Compare}
 
   # def min do
   #   "0|000000:"
@@ -14,16 +14,23 @@ defmodule LexorankEx do
   # end
 
   def between(left, right) do
-    [start_rank, end_rank] = Enum.sort([left, right])
+    [min, max] = Enum.sort([left, right])
 
-    {start_digits, end_digits} = Coersion.coerce(start_rank, end_rank)
+    {min_digits, max_digits} = Coersion.coerce(min, max)
 
-    { half, _reminder } = Partition.call(end_digits)
+    {min_half, min_reminder} = Partition.call(min_digits)
+    {max_half, max_reminder} = Partition.call(max_digits)
 
-    division = Substract.call(end_digits, half)
+    reminder = min_reminder + max_reminder
 
-    Add.call(start_digits, division)
-    |> Coersion.translate_to_chars()
+    sum = Add.call(min_half, max_half)
+
+    case Compare.between?(min_digits, sum, max_digits) do
+      true -> Coersion.to_chars(sum)
+      false ->
+        (Fraction.call(reminder) ++ sum)
+        |> Coersion.to_chars()
+    end
   end
 
   # def min(rank) do

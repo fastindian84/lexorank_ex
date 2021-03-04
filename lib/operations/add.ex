@@ -1,8 +1,8 @@
 defmodule LexorankEx.Oparations.Add do
-  import LexorankEx.NumerialSystem, only: [radix: 0, max_index: 0]
+  import LexorankEx.NumerialSystem, only: [max_index: 0]
 
-  def call(signature1, signature2) do
-    call(signature1, signature2, [])
+  def call(left, right) do
+    call(left, right, [])
   end
   def call([carry], [], acc) do
     Enum.reverse(acc) ++ [carry]
@@ -10,8 +10,8 @@ defmodule LexorankEx.Oparations.Add do
   def call([], [], acc) do
     Enum.reverse(acc)
   end
-  def call([sig | tail], [sig2 | tail2], acc) do
-    sum = sig + sig2
+  def call([digit | tail], [digit2 | tail2], acc) do
+    sum = digit + digit2
 
     case sum <= max_index() do
       true -> call(tail, tail2, [sum | acc])
@@ -25,7 +25,7 @@ defmodule LexorankEx.Oparations.Add do
         # ======        ==========
         #  100             1  0  0
 
-        diff = sig + sig2 - max_index() - 1
+        diff = digit + digit2 - max_index() - 1
         call(shifted, tail2, [diff | acc])
     end
   end
