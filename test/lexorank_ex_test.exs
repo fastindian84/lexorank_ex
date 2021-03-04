@@ -2,9 +2,22 @@ defmodule LexorankExTest do
   use ExUnit.Case
   doctest LexorankEx
 
-  test "#min" do
-    assert LexorankEx.min() == '0|000000:'
+  test "#middle/1" do
+    assert LexorankEx.middle(8) == "UzUzUzUz"
   end
+
+  test "#next/1" do
+    # assert LexorankEx.next("a") == 'i'
+    assert_raise LexorankEx.Error, fn() ->
+      LexorankEx.next("z")
+    end
+
+    assert LexorankEx.next("00000") == "00008"
+    assert LexorankEx.next("0000z") == "00017"
+    assert LexorankEx.next("aaaaa") == "aaaai"
+    assert LexorankEx.next("azzzz") == "b0007"
+  end
+
 
   test "#between" do
     Enum.reduce(0..100, ["000000", "zzzzzz"], fn(_, [min, max]) ->
@@ -16,6 +29,7 @@ defmodule LexorankExTest do
       [min, result]
     end)
 
+    assert LexorankEx.between("a", "b") == "aV"
     assert LexorankEx.between("0", "01") == "00V"
     assert LexorankEx.between("a", "aF") == "a7"
     assert LexorankEx.between("a", "c") == "b"

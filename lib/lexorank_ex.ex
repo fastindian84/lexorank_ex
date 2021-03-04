@@ -1,18 +1,57 @@
 defmodule LexorankEx do
   alias LexorankEx.Oparations.{Add, Partition, Coersion, Fraction, Compare}
+  alias LexorankEx.NumerialSystem
 
-  # def min do
-  #   "0|000000:"
-  # end
-  #
-  # def next(rank) do
-  #
-  # end
-  #
-  # def prev(rank) do
-  #
+  @default_rank_step 8
+
+  def minimum_value do
+    NumerialSystem.min
+  end
+
+  def maximum_value do
+    NumerialSystem.max
+  end
+
+  def next(rank, step \\ @default_rank_step) do
+    import LexorankEx.NumerialSystem, only: [min: 1]
+
+    {digits, [_| zeros]} = Coersion.coerce(rank, min(String.length(rank)))
+
+    resut = Add.call(digits, [step | zeros])
+            |> Coersion.to_chars()
+
+    case Enum.sort([resut, rank]) do
+      [^rank, ^resut] -> resut
+      _ -> raise LexorankEx.Error.exception("""
+          There is no space to grow. Generated value is lexically smaller than provied rank
+        """)
+    end
+  end
+
+  # def rank_step(length) do
+  #   min(length - 1) ++
   # end
 
+  def prev(rank, step \\ @default_rank_step) do
+
+  end
+
+  @doc"""
+  The result is a middle rank for NumerialSystem with radix == 62
+  """
+  def middle(division) when is_integer(division) do
+    import LexorankEx.NumerialSystem, only: [min: 1, max: 1]
+
+    between(min(division), max(division))
+  end
+  def middle(_), do: raise LexorankEx.Error.exception("Please, provide division number")
+
+  @doc"""
+  Returns middle point between two string.
+  between("a", "c") => "b"
+  between("a", "b") => "aV"
+  """
+  def between(string, string), do: raise LexorankEx.Error.exception("Strings are equal.")
   def between(left, right) do
     [min, max] = Enum.sort([left, right])
 

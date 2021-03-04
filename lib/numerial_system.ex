@@ -27,8 +27,17 @@ defmodule LexorankEx.NumerialSystem do
   end
 
   def min, do: @min
+  def min(division), do: to_rank(@min, division)
+
   def min_index, do: to_digit(@min)
   def max, do: @max
+  def max(division), do: to_rank(@max, division)
   def radix, do: @radix
   def max_index, do: @max_index
+
+  defp to_rank(value, division) do
+    Range.new(0, division - 1)
+    |> Enum.map(fn(_) -> value end)
+    |> Enum.join()
+  end
 end

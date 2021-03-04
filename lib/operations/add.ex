@@ -44,7 +44,7 @@ defmodule LexorankEx.Oparations.Add do
     case result <= max_index() do
       true -> Enum.reverse(acc) ++ [result] ++ tail
       false ->
-        increment_list(tail, [0])
+        increment_list(tail, [0 | acc])
     end
   end
 end
