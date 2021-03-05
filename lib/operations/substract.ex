@@ -42,7 +42,7 @@ defmodule LexorankEx.Oparations.Substract do
     decrement_list(rest, [])
   end
   defp decrement_list([], _) do
-    raise LexorankEx.Error.exception("Nothing left to substract")
+    raise LexorankEx.MinValueReachedError.exception("Nothing left to substract")
   end
   defp decrement_list([head | tail], acc) do
     case head > 0 do

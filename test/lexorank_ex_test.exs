@@ -7,8 +7,7 @@ defmodule LexorankExTest do
   end
 
   test "#next/1" do
-    # assert LexorankEx.next("a") == 'i'
-    assert_raise LexorankEx.Error, fn() ->
+    assert_raise LexorankEx.MaxValueReachedError, fn() ->
       LexorankEx.next("z")
     end
 
@@ -18,7 +17,16 @@ defmodule LexorankExTest do
     assert LexorankEx.next("azzzz") == "b0007"
   end
 
+  test "#prev/1" do
+    assert_raise LexorankEx.MinValueReachedError, fn() ->
+      LexorankEx.prev("00000")
+    end
 
+    assert LexorankEx.prev("00008") == "00000"
+    assert LexorankEx.prev("00017") == "0000z"
+    assert LexorankEx.prev("aaaai") == "aaaaa"
+    assert LexorankEx.prev("b0007") == "azzzz"
+  end
   test "#between" do
     Enum.reduce(0..100, ["000000", "zzzzzz"], fn(_, [min, max]) ->
       result = LexorankEx.between(min, max)

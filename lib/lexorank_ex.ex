@@ -1,5 +1,5 @@
 defmodule LexorankEx do
-  alias LexorankEx.Oparations.{Add, Partition, Coersion, Fraction, Compare}
+  alias LexorankEx.Oparations.{Add, Partition, Coersion, Fraction, Compare, Substract}
   alias LexorankEx.NumerialSystem
 
   @default_rank_step 8
@@ -12,28 +12,39 @@ defmodule LexorankEx do
     NumerialSystem.max
   end
 
+  @doc"""
+  Returns next lexically greater value for provider rank
+
+  LexorankEx.next("a") => "i" default step is #{@default_rank_step}
+  LexorankEx.next("a", step = 1) => "b"
+  """
   def next(rank, step \\ @default_rank_step) do
     import LexorankEx.NumerialSystem, only: [min: 1]
 
     {digits, [_| zeros]} = Coersion.coerce(rank, min(String.length(rank)))
 
-    resut = Add.call(digits, [step | zeros])
+    result = Add.call(digits, [step | zeros])
             |> Coersion.to_chars()
 
-    case Enum.sort([resut, rank]) do
-      [^rank, ^resut] -> resut
-      _ -> raise LexorankEx.Error.exception("""
-          There is no space to grow. Generated value is lexically smaller than provied rank
-        """)
+    case Enum.sort([result, rank]) do
+      [^rank, ^result] -> result
+      _ -> raise LexorankEx.MaxValueReachedError
     end
   end
 
-  # def rank_step(length) do
-  #   min(length - 1) ++
-  # end
+  @doc"""
+  Returns next lexically lesser value for provider rank
 
+  LexorankEx.prev("i") => "a" default step is #{@default_rank_step}
+  LexorankEx.prev("b", step = 1) => "a"
+  """
   def prev(rank, step \\ @default_rank_step) do
+    import LexorankEx.NumerialSystem, only: [min: 1]
 
+    {digits, [_| zeros]} = Coersion.coerce(rank, min(String.length(rank)))
+
+    Substract.call(digits, [step | zeros])
+    |> Coersion.to_chars()
   end
 
   @doc"""
