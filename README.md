@@ -1,11 +1,13 @@
 # LexorankEx
 
-**TODO: Add description**
+LexoRank on Elixir. An implementation of a list ordering system.
+
+The base62: (0-9A-Za-z) pre-generated symbol table are used
+where minimum value is 0 and maximum value is z
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `lexorank_ex` to your list of dependencies in `mix.exs`:
+The package can be installed by adding `lexorank_ex` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -15,7 +17,42 @@ def deps do
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/lexorank_ex](https://hexdocs.pm/lexorank_ex).
+
+## Usage
+
+```elixir
+# Generates middle string between max and min value for provided division
+
+divison = 8
+LexorankEx.middle(divison) => "UzUzUzUz"
+
+# Default step is 8
+
+# Finds next, lexically greater value:
+
+LexorankEx.next("00000") == "00008"
+LexorankEx.next("00000", 1) == "00001"
+
+LexorankEx.next("a") == "i"
+LexorankEx.next("a", 1) == "b"
+
+# Finds previous, lexically lesser value:
+
+LexorankEx.prev("00008") == "00000"
+LexorankEx.prev("00008", 1) == "00007"
+
+LexorankEx.prev("a") == "i"
+LexorankEx.prev("b", 1) == "a"
+
+# Finds middle point between maximum and minimum value. Order doesn't matter:
+LexorankEx.between("a", "b") == "aV"
+LexorankEx.between("a", "c") == "b"
+LexorankEx.between("aaaaz", "zzzzz") == "nHnHy"
+```
+
+
+## References
+
+Thanks to the [mudderjs](https://github.com/fasiha/mudderjs) and its explanation of the algorighm
+
 

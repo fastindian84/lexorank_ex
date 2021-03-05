@@ -11,6 +11,8 @@ defmodule LexorankExTest do
       LexorankEx.next("z")
     end
 
+    assert LexorankEx.prev("a", 1) == "b"
+    assert LexorankEx.next("a") == "i"
     assert LexorankEx.next("00000") == "00008"
     assert LexorankEx.next("0000z") == "00017"
     assert LexorankEx.next("aaaaa") == "aaaai"
@@ -22,6 +24,9 @@ defmodule LexorankExTest do
       LexorankEx.prev("00000")
     end
 
+    assert LexorankEx.prev("b", 1) == "a"
+    assert LexorankEx.prev("i") == "a"
+    assert LexorankEx.next("00000") == "00008"
     assert LexorankEx.prev("00008") == "00000"
     assert LexorankEx.prev("00017") == "0000z"
     assert LexorankEx.prev("aaaai") == "aaaaa"
