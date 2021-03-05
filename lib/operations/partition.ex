@@ -17,10 +17,10 @@ defmodule LexorankEx.Oparations.Partition do
   def call(numbers, denominator \\ 2) do
     call(Enum.reverse(numbers), denominator, {[], 0})
   end
-  def call([], _denominator, {acc, reminder}) do
+  defp call([], _denominator, {acc, reminder}) do
     {acc, reminder}
   end
-  def call([head | tail], denominator, {acc, reminder}) do
+  defp call([head | tail], denominator, {acc, reminder}) do
       number = head + reminder * max_index()
 
       ceil = Integer.floor_div(number, denominator)

@@ -16,6 +16,7 @@ defmodule LexorankEx do
   Returns next lexically greater value for provider rank
 
   LexorankEx.next("a") => "i" default step is #{@default_rank_step}
+
   LexorankEx.next("a", step = 1) => "b"
   """
   def next(rank, step \\ @default_rank_step) do
@@ -36,6 +37,7 @@ defmodule LexorankEx do
   Returns next lexically lesser value for provider rank
 
   LexorankEx.prev("i") => "a" default step is #{@default_rank_step}
+
   LexorankEx.prev("b", step = 1) => "a"
   """
   def prev(rank, step \\ @default_rank_step) do
@@ -58,8 +60,10 @@ defmodule LexorankEx do
   def middle(_), do: raise LexorankEx.Error.exception("Please, provide division number")
 
   @doc"""
-  Returns middle point between two string.
+  Returns middle point between two strings.
+
   between("a", "c") => "b"
+
   between("a", "b") => "aV"
   """
   def between(string, string), do: raise LexorankEx.Error.exception("Strings are equal.")

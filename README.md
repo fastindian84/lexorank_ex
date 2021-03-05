@@ -1,5 +1,8 @@
 # LexorankEx
 
+[![Module Version](https://img.shields.io/hexpm/v/lexorank_ex)](https://hex.pm/packages/lexorank_ex/0.1.0)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/lexorank_ex/0.1.0/LexorankEx.html)
+
 LexoRank on Elixir. An implementation of a list ordering system.
 
 The base62: (0-9A-Za-z) pre-generated symbol table are used
@@ -41,7 +44,7 @@ LexorankEx.next("a", 1) == "b"
 LexorankEx.prev("00008") == "00000"
 LexorankEx.prev("00008", 1) == "00007"
 
-LexorankEx.prev("a") == "i"
+LexorankEx.prev("i") == "a"
 LexorankEx.prev("b", 1) == "a"
 
 # Finds middle point between maximum and minimum value. Order doesn't matter:
@@ -53,6 +56,6 @@ LexorankEx.between("aaaaz", "zzzzz") == "nHnHy"
 
 ## References
 
-Thanks to the [mudderjs](https://github.com/fasiha/mudderjs) and its explanation of the algorighm
+Thanks to the [mudderjs](https://github.com/fasiha/mudderjs) and its explanation of the algorithm
 
 

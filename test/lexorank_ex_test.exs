@@ -11,7 +11,7 @@ defmodule LexorankExTest do
       LexorankEx.next("z")
     end
 
-    assert LexorankEx.prev("a", 1) == "b"
+    assert LexorankEx.next("a", 1) == "b"
     assert LexorankEx.next("a") == "i"
     assert LexorankEx.next("00000") == "00008"
     assert LexorankEx.next("0000z") == "00017"

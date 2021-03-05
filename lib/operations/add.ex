@@ -4,13 +4,13 @@ defmodule LexorankEx.Oparations.Add do
   def call(left, right) do
     call(left, right, [])
   end
-  def call([carry], [], acc) do
+  defp call([carry], [], acc) do
     Enum.reverse(acc) ++ [carry]
   end
-  def call([], [], acc) do
+  defp call([], [], acc) do
     Enum.reverse(acc)
   end
-  def call([digit | tail], [digit2 | tail2], acc) do
+  defp call([digit | tail], [digit2 | tail2], acc) do
     sum = digit + digit2
 
     case sum <= max_index() do
