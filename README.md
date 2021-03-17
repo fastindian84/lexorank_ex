@@ -27,7 +27,7 @@ end
 # Generates middle string between max and min value for provided division
 
 divison = 8
-LexorankEx.middle(divison) => "UzUzUzUz"
+LexorankEx.middle(divison) => "Uzzzzzzz"
 
 # Default step is 8
 
@@ -50,7 +50,7 @@ LexorankEx.prev("b", 1) == "a"
 # Finds middle point between maximum and minimum value. Order doesn't matter:
 LexorankEx.between("a", "b") == "aV"
 LexorankEx.between("a", "c") == "b"
-LexorankEx.between("aaaaz", "zzzzz") == "nHnHy"
+LexorankEx.between("aaaaz", "zzzzz") == "nIIIT"
 ```
 
 

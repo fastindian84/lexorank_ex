@@ -3,7 +3,7 @@ defmodule LexorankExTest do
   doctest LexorankEx
 
   test "#middle/1" do
-    assert LexorankEx.middle(8) == "UzUzUzUz"
+    assert LexorankEx.middle(8) == "Uzzzzzzz"
   end
 
   test "#next/1" do
@@ -33,7 +33,10 @@ defmodule LexorankExTest do
     assert LexorankEx.prev("b0007") == "azzzz"
   end
   test "#between" do
-    Enum.reduce(0..100, ["000000", "zzzzzz"], fn(_, [min, max]) ->
+    middle = LexorankEx.middle(8)
+    next = LexorankEx.next(middle)
+
+    Enum.reduce(0..100, [middle, next], fn(_, [min, max]) ->
       result = LexorankEx.between(min, max)
 
       assert [min, result, max] == Enum.sort([min, result, max])
@@ -48,6 +51,6 @@ defmodule LexorankExTest do
     assert LexorankEx.between("a", "c") == "b"
     assert LexorankEx.between("0", "z") == "U"
     assert LexorankEx.between("AA", "AB") == "AAV"
-    assert LexorankEx.between("aaaaz", "zzzzz") == "nHnHy"
+    assert LexorankEx.between("aaaaz", "zzzzz") == "nIIIT"
   end
 end

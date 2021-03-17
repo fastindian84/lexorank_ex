@@ -1,5 +1,5 @@
 defmodule LexorankEx.Oparations.Partition do
-  import LexorankEx.NumerialSystem, only: [max_index: 0]
+  import LexorankEx.NumerialSystem, only: [radix: 0]
 
   @doc"""
   Consider two numbers, a and b. Their mean is (a + b) / 2.
@@ -21,7 +21,7 @@ defmodule LexorankEx.Oparations.Partition do
     {acc, reminder}
   end
   defp call([head | tail], denominator, {acc, reminder}) do
-      number = head + reminder * max_index()
+      number = head + reminder * radix()
 
       ceil = Integer.floor_div(number, denominator)
 
