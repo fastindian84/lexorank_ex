@@ -1,4 +1,4 @@
-defmodule LexorankEx.Oparations.SubstractTest do
+defmodule LexorankEx.Oparations.AddTest do
   use ExUnit.Case
   import LexorankEx.Oparations.Add
 

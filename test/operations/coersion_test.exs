@@ -4,7 +4,7 @@ defmodule LexorankEx.CoersionTest do
 
   test "#signature/2" do
     assert [40, 10, 1] = signature("1Ae")
-    assert [40, 10, 1, 0, 0, 0, 0] = signature("1Ae", 4)
+    assert [0, 0, 0, 0, 40, 10, 1] = signature("1Ae", 4)
   end
 
   test "#coercion/2" do
