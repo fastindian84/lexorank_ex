@@ -15,7 +15,7 @@ The package can be installed by adding `lexorank_ex` to your list of dependencie
 ```elixir
 def deps do
   [
-    {:lexorank_ex, "~> 0.1.0"}
+    {:lexorank_ex, "~> 0.1.1"}
   ]
 end
 ```
