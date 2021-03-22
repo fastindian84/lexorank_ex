@@ -53,4 +53,14 @@ defmodule LexorankExTest do
     assert LexorankEx.between("AA", "AB") == "AAV"
     assert LexorankEx.between("aaaaz", "zzzzz") == "nIIIT"
   end
+
+  test "#distance/2" do
+    assert LexorankEx.distance("V0000007", "V000000F") == 8
+    assert LexorankEx.distance("00", "zz") == 3843
+    assert LexorankEx.distance("aa", "bb") == 63
+    assert LexorankEx.distance("00", "010") == 62
+    assert LexorankEx.distance("a0", "b") == 62
+    assert LexorankEx.distance("a0", "b1") == 63
+    assert LexorankEx.distance("a", "b") == 1
+  end
 end
