@@ -15,7 +15,7 @@ The package can be installed by adding `lexorank_ex` to your list of dependencie
 ```elixir
 def deps do
   [
-    {:lexorank_ex, "~> 0.1.2"}
+    {:lexorank_ex, "~> 0.1.3"}
   ]
 end
 ```
@@ -51,6 +51,17 @@ LexorankEx.prev("b", 1) == "a"
 LexorankEx.between("a", "b") == "aV"
 LexorankEx.between("a", "c") == "b"
 LexorankEx.between("aaaaz", "zzzzz") == "nIIIT"
+
+
+# Finds the distance between two values
+
+LexorankEx.distance("V0000007", "V000000F") == 8
+LexorankEx.distance("00", "zz") == 3843
+LexorankEx.distance("aa", "bb") == 63
+LexorankEx.distance("00", "010") == 62
+LexorankEx.distance("a0", "b") == 62
+LexorankEx.distance("a0", "b1") == 63
+LexorankEx.distance("a", "b") == 1
 ```
 
 

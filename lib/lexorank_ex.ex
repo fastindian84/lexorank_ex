@@ -1,5 +1,5 @@
 defmodule LexorankEx do
-  alias LexorankEx.Oparations.{Add, Partition, Coersion, Fraction, Compare, Substract}
+  alias LexorankEx.Oparations.{Add, Partition, Coersion, Fraction, Compare, Substract, Distance}
   alias LexorankEx.NumerialSystem
 
   @default_rank_step 8
@@ -85,5 +85,16 @@ defmodule LexorankEx do
         (Fraction.call(reminder) ++ sum)
         |> Coersion.to_chars()
     end
+  end
+
+  @doc"""
+  Returns the distance between two values
+  """
+  def distance(left, right) do
+    [min, max] = Enum.sort([left, right])
+
+    {min_digits, max_digits} = Coersion.coerce(min, max)
+
+    Distance.call(max_digits, min_digits)
   end
 end
