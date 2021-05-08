@@ -4,16 +4,16 @@ defmodule LexorankEx do
 
   @default_rank_step 8
 
-  def minimum_value do
-    NumerialSystem.min
+  def minimum_value(division \\ 1) do
+    NumerialSystem.min(division)
   end
 
-  def maximum_value do
-    NumerialSystem.max
+  def maximum_value(division \\ 1) do
+    NumerialSystem.max(division)
   end
 
   @doc"""
-  Returns next lexically greater value for provider rank
+  Returns next lexically greater value for provided rank
 
   LexorankEx.next("a") => "i" default step is #{@default_rank_step}
 
@@ -34,7 +34,7 @@ defmodule LexorankEx do
   end
 
   @doc"""
-  Returns next lexically lesser value for provider rank
+  Returns next lexically lesser value for provided rank
 
   LexorankEx.prev("i") => "a" default step is #{@default_rank_step}
 

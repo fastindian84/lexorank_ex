@@ -1,4 +1,5 @@
 defmodule LexorankExTest do
+
   use ExUnit.Case
   doctest LexorankEx
 
@@ -26,7 +27,6 @@ defmodule LexorankExTest do
 
     assert LexorankEx.prev("b", 1) == "a"
     assert LexorankEx.prev("i") == "a"
-    assert LexorankEx.next("00000") == "00008"
     assert LexorankEx.prev("00008") == "00000"
     assert LexorankEx.prev("00017") == "0000z"
     assert LexorankEx.prev("aaaai") == "aaaaa"

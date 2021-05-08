@@ -1,7 +1,7 @@
 # LexorankEx
 
-[![Module Version](https://img.shields.io/hexpm/v/lexorank_ex)](https://hex.pm/packages/lexorank_ex/0.1.0)
-[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/lexorank_ex/0.1.0/LexorankEx.html)
+[![Module Version](https://img.shields.io/hexpm/v/lexorank_ex)](https://hex.pm/packages/lexorank_ex/0.1.4)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/lexorank_ex/0.1.4/LexorankEx.html)
 
 LexoRank on Elixir. An implementation of a list ordering system.
 
@@ -64,9 +64,29 @@ LexorankEx.distance("a0", "b1") == 63
 LexorankEx.distance("a", "b") == 1
 ```
 
+# Buckets
+
+Usually all ranks are unique. But if you need to rebalance your set, Buckets will help you.
+Bucket API is the same, but for all generated ranks it will add bucket prefix.
+
+```
+alias LexorankEx.Bucket
+
+Bucket.middle(8) == "1|Uzzzzzzz"
+Bucket.next("1|a") == "1|i"
+Bucket.next("1|00000") == "1|00008"
+Bucket.prev("3|b0007") == "3|azzzz"
+Bucket.between("2|aaaaz", "2|zzzzz") == "2|nIIIT"
+Bucket.distance("1|00", "1|010") == 62
+
+Bucket.new("1|00000") == "2|00000"
+Bucket.new("2|00000") == "3|00000"
+Bucket.new("3|00000") == "1|00000"
+
+Bucket.new("3|00000", :middle) == "1|Uzzzzzzz"
+```
 
 ## References
 
 Thanks to the [mudderjs](https://github.com/fasiha/mudderjs) and its explanation of the algorithm
-
 
