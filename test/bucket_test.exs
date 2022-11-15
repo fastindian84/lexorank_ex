@@ -70,6 +70,7 @@ defmodule Bucket.BucketTest do
   test "#distance/2" do
     assert Bucket.distance("1|V0000007", "1|V000000F") == 8
     assert Bucket.distance("2|00", "2|zz") == 3843
+    assert Bucket.distance("2|000", "2|zzz") == 238327
     assert Bucket.distance("3|aa", "3|bb") == 63
     assert Bucket.distance("1|00", "1|010") == 62
     assert Bucket.distance("1|a0", "1|b") == 62
