@@ -1,50 +1,33 @@
-defmodule LexorankEx.Oparations.Add do
-  import LexorankEx.NumerialSystem, only: [max_index: 0]
+defmodule LexorankEx.Operations.Add do
+  @moduledoc """
+  Adds 2 ranks in number representation.
+  Ranks are expected to have equal length.
 
+  Example:
+    LexorankEx.Operations.Add.call([40, 1], [40, 0])
+    [18, 2]
+  """
+  import LexorankEx.NumeralSystem, only: [radix: 0]
+
+  @spec call([non_neg_integer()], [non_neg_integer()]) :: [non_neg_integer()]
   def call(left, right) do
-    call(left, right, [])
+    call(left, right, {[], 0})
   end
-  defp call([carry], [], acc) do
-    Enum.reverse(acc) ++ [carry]
-  end
-  defp call([], [], acc) do
+
+  defp call([], [], {acc, 0}) do
     Enum.reverse(acc)
   end
-  defp call([digit | tail], [digit2 | tail2], acc) do
-    sum = digit + digit2
 
-    case sum <= max_index() do
-      true -> call(tail, tail2, [sum | acc])
-      false ->
-        shifted = increment_list(tail)
-        # The increment_list list is a operation itself
-        # We need to decrease added value by 1
-        # Radix 10       Radix 62
-        #   99              61 61
-        # +  1             +    1
-        # ======        ==========
-        #  100             1  0  0
-
-        diff = digit + digit2 - max_index() - 1
-        call(shifted, tail2, [diff | acc])
-    end
+  defp call([], [], {acc, leftover}) do
+    h = rem(leftover, radix())
+    leftover = div(leftover, radix())
+    call([], [], {[h | acc], leftover})
   end
 
-  defp increment_list(list) do
-    increment_list(list, [])
-  end
-  defp increment_list([], acc) do
-    # We've reached the the maximum value in current division
-    # 61 61 61
-    acc ++ [1]
-  end
-  defp increment_list([head | tail], acc) do
-    result = head + 1
-
-    case result <= max_index() do
-      true -> Enum.reverse(acc) ++ [result] ++ tail
-      false ->
-        increment_list(tail, [0 | acc])
-    end
+  defp call([h | tail1], [incr | tail2], {acc, leftover}) do
+    sum = h + incr + leftover
+    h = rem(sum, radix())
+    leftover = div(sum, radix())
+    call(tail1, tail2, {[h | acc], leftover})
   end
 end
