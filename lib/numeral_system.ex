@@ -9,7 +9,7 @@ defmodule LexorankEx.NumeralSystem do
   @min List.first(@list)
   @max List.last(@list)
   @radix Enum.count(@list)
-  @max_index @radix - 1
+  @middle_index div(@radix, 2)
 
   def to_number(char) do
     Map.get(@mapping, char)
@@ -23,15 +23,13 @@ defmodule LexorankEx.NumeralSystem do
 
   def min(division), do: to_rank(@min, division)
 
-  def min_index, do: to_number(@min)
-
   def max, do: @max
 
   def max(division), do: to_rank(@max, division)
 
   def radix, do: @radix
 
-  def max_index, do: @max_index
+  def middle_index, do: @middle_index
 
   defp to_rank(value, division) do
     List.duplicate(value, division) |> Enum.join()

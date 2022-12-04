@@ -53,7 +53,7 @@ defmodule LexorankEx do
   The result is a middle rank for NumeralSystem with radix == 62
   """
   @spec middle(non_neg_integer()) :: String.t()
-  def middle(division) when is_integer(division) do
+  def middle(division) do
     between(NumeralSystem.min(division), NumeralSystem.max(division))
   end
 
@@ -75,7 +75,7 @@ defmodule LexorankEx do
 
     Add.call(min_numbers, max_numbers)
     |> Divide.call()
-    # Drop extra undesired item which may be introduced by Add.call/2, e.g.
+    # Drop extra item which may be introduced by Add.call/2, e.g.
     # Add.call([36], [38]) => [12, 1]
     # Divide.call([12, 1]) => [37, 0]
     # Enum.take([37, 0], 1) => [37]
@@ -88,7 +88,7 @@ defmodule LexorankEx do
   end
 
   defp resolve_clash(min, min) do
-    [div(NumeralSystem.radix(), 2) | min]
+    [NumeralSystem.middle_index() | min]
   end
 
   defp resolve_clash(between, _), do: between

@@ -62,11 +62,11 @@ defmodule LexorankExTest do
   end
 
   test "#distance/2" do
-    # assert LexorankEx.distance("V0000007", "V000000F") == 8
-    # assert LexorankEx.distance("00", "zz") == 3843
-    # assert LexorankEx.distance("000", "zzz") == 238_327
-    # assert LexorankEx.distance("aa", "bb") == 63
-    # assert LexorankEx.distance("00", "010") == 62
+    assert LexorankEx.distance("V0000007", "V000000F") == 8
+    assert LexorankEx.distance("00", "zz") == 3843
+    assert LexorankEx.distance("000", "zzz") == 238_327
+    assert LexorankEx.distance("aa", "bb") == 63
+    assert LexorankEx.distance("00", "010") == 62
     assert LexorankEx.distance("a0", "b") == 62
     assert LexorankEx.distance("a0", "b1") == 63
     assert LexorankEx.distance("a", "b") == 1
