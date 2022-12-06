@@ -1,7 +1,7 @@
 # LexorankEx
 
-[![Module Version](https://img.shields.io/hexpm/v/lexorank_ex)](https://hex.pm/packages/lexorank_ex/0.1.4)
-[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/lexorank_ex/0.1.4/LexorankEx.html)
+[![Module Version](https://img.shields.io/hexpm/v/lexorank_ex)](https://hex.pm/packages/lexorank_ex/0.1.5)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/lexorank_ex/0.1.5/LexorankEx.html)
 
 LexoRank on Elixir. An implementation of a list ordering system.
 
@@ -15,7 +15,7 @@ The package can be installed by adding `lexorank_ex` to your list of dependencie
 ```elixir
 def deps do
   [
-    {:lexorank_ex, "~> 0.1.3"}
+    {:lexorank_ex, "~> 0.1.5"}
   ]
 end
 ```
