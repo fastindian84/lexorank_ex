@@ -1,5 +1,4 @@
 defmodule LexorankExTest do
-
   use ExUnit.Case
   doctest LexorankEx
 
@@ -8,35 +7,38 @@ defmodule LexorankExTest do
   end
 
   test "#next/1" do
-    assert_raise LexorankEx.MaxValueReachedError, fn() ->
+    assert_raise LexorankEx.MaxValueReachedError, fn ->
       LexorankEx.next("z")
     end
 
     assert LexorankEx.next("a", 1) == "b"
     assert LexorankEx.next("a") == "i"
     assert LexorankEx.next("00000") == "00008"
+    assert LexorankEx.next("00000", 125) == "00021"
     assert LexorankEx.next("0000z") == "00017"
     assert LexorankEx.next("aaaaa") == "aaaai"
     assert LexorankEx.next("azzzz") == "b0007"
   end
 
   test "#prev/1" do
-    assert_raise LexorankEx.MinValueReachedError, fn() ->
+    assert_raise LexorankEx.MinValueReachedError, fn ->
       LexorankEx.prev("00000")
     end
 
     assert LexorankEx.prev("b", 1) == "a"
     assert LexorankEx.prev("i") == "a"
     assert LexorankEx.prev("00008") == "00000"
+    assert LexorankEx.prev("00021", 125) == "00000"
     assert LexorankEx.prev("00017") == "0000z"
     assert LexorankEx.prev("aaaai") == "aaaaa"
     assert LexorankEx.prev("b0007") == "azzzz"
   end
+
   test "#between" do
     middle = LexorankEx.middle(8)
     next = LexorankEx.next(middle)
 
-    Enum.reduce(0..100, [middle, next], fn(_, [min, max]) ->
+    Enum.reduce(0..100, [middle, next], fn _, [min, max] ->
       result = LexorankEx.between(min, max)
 
       assert [min, result, max] == Enum.sort([min, result, max])
@@ -49,15 +51,20 @@ defmodule LexorankExTest do
     assert LexorankEx.between("0", "01") == "00V"
     assert LexorankEx.between("a", "aF") == "a7"
     assert LexorankEx.between("a", "c") == "b"
+    assert LexorankEx.between("1", "3") == "2"
     assert LexorankEx.between("0", "z") == "U"
     assert LexorankEx.between("AA", "AB") == "AAV"
-    assert LexorankEx.between("aaaaz", "zzzzz") == "nIIIT"
+    assert LexorankEx.between("aaaaz", "zzzzz") == "nIIIU"
+  end
+
+  test "#between failed" do
+    assert LexorankEx.between("3", "5") == "4"
   end
 
   test "#distance/2" do
     assert LexorankEx.distance("V0000007", "V000000F") == 8
     assert LexorankEx.distance("00", "zz") == 3843
-    assert LexorankEx.distance("000", "zzz") == 238327
+    assert LexorankEx.distance("000", "zzz") == 238_327
     assert LexorankEx.distance("aa", "bb") == 63
     assert LexorankEx.distance("00", "010") == 62
     assert LexorankEx.distance("a0", "b") == 62

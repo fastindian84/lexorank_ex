@@ -50,7 +50,7 @@ LexorankEx.prev("b", 1) == "a"
 # Finds middle point between maximum and minimum value. Order doesn't matter:
 LexorankEx.between("a", "b") == "aV"
 LexorankEx.between("a", "c") == "b"
-LexorankEx.between("aaaaz", "zzzzz") == "nIIIT"
+LexorankEx.between("aaaaz", "zzzzz") == "nIIIU"
 
 
 # Finds the distance between two values
